@@ -1,10 +1,10 @@
 package com.github.yasukotelin.ui_user_detail
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -42,6 +42,14 @@ class UserDetailFragment : Fragment() {
             this.navigateBackAction.observe(viewLifecycleOwner, EventObserver {
                 findNavController().popBackStack()
             })
+            this.user.observe(viewLifecycleOwner, Observer {
+                this.fetchStatusBarColor(BitmapFactory.decodeResource(resources, it.headerResId))
+            })
+            this.statusBarColor.observe(viewLifecycleOwner, Observer { color ->
+                activity?.also {
+                    it.window.statusBarColor = color
+                }
+            })
         }
     }
 
@@ -53,4 +61,13 @@ class UserDetailFragment : Fragment() {
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+
+        activity?.also {
+            // シングルActivityなので移動する時には元のカラーに戻す必要がある
+            it.window.statusBarColor =
+                resources.getColor(R.color.colorDefaultStatusBar, it.theme)
+        }
+    }
 }

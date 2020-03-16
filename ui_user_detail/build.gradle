@@ -56,4 +56,5 @@ dependencies {
     implementation project(":ui_core")
     implementation project(":model")
     implementation project(":usecase_user")
+    implementation project(":usecase_palette")
 }
