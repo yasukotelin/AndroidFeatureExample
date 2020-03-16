@@ -4,6 +4,9 @@ apply plugin: 'kotlin-android-extensions'
 
 
 apply plugin: 'kotlin-kapt'
+kapt {
+    correctErrorTypes = true
+}
 
 android {
     compileSdkVersion 29
@@ -40,8 +43,16 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // Navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.2.1'
     implementation 'androidx.navigation:navigation-ui-ktx:2.2.1'
 
+    // Epoxy
+    implementation 'com.airbnb.android:epoxy:3.8.0'
+    annotationProcessor 'com.airbnb.android:epoxy-processor:3.8.0'
+    api 'com.airbnb.android:epoxy-databinding:3.8.0'
+
     implementation project(":ui_home")
+    implementation project(":ui_user_detail")
 }

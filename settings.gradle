@@ -1,3 +1,8 @@
 rootProject.name='AndroidFeatureExample'
 include ':app'
 include ':ui_home'
+include ':ui_core'
+include ':model'
+include ':usecase_user'
+include ':repository_user'
+include ':ui_user_detail'
