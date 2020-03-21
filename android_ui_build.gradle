@@ -1,0 +1,25 @@
+import dependencies.Dep
+
+apply from: "${rootDir.absolutePath}/android_build.gradle"
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
+android {
+    dataBinding {
+        enabled true
+    }
+}
+
+dependencies {
+    implementation Dep.Lifecycle.extensions
+    implementation Dep.Lifecycle.viewModelKtx
+
+    implementation Dep.AndroidX.cardView
+    implementation Dep.AndroidX.constraintLayout
+
+    implementation Dep.Navigation.fragmentKtx
+    implementation Dep.Navigation.uiKtx
+
+    implementation Dep.Epoxy.epoxy
+    kapt Dep.Epoxy.processor
+    implementation Dep.Epoxy.dataBinding
+}

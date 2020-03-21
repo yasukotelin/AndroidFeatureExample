@@ -1,7 +1,9 @@
+import dependencies.Android
+import dependencies.Dep
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
 
 apply plugin: 'kotlin-kapt'
 kapt {
@@ -9,17 +11,17 @@ kapt {
 }
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion Android.compileSdkVersion
+    buildToolsVersion Android.buildToolVersion
 
     defaultConfig {
-        applicationId "com.github.yasukotelin.androidfeatureexample"
-        minSdkVersion 23
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        applicationId Android.DefaultConfig.applicationId
+        minSdkVersion Android.DefaultConfig.minSdkVersion
+        targetSdkVersion Android.DefaultConfig.targetSdkVersion
+        versionCode Android.DefaultConfig.versionCode
+        versionName Android.DefaultConfig.versionName
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner Android.DefaultConfig.testInstrumentationRunner
     }
 
     buildTypes {
@@ -36,22 +38,20 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation Dep.Kotlin.stdlib
+    implementation Dep.AndroidX.appcompat
+    implementation Dep.AndroidX.coreKtx
+    implementation Dep.AndroidX.constraintLayout
+    testImplementation Dep.Test.junit
+    androidTestImplementation Dep.Test.junit
+    androidTestImplementation Dep.Test.espresso
 
-    // Navigation
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.1'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.2.1'
+    implementation Dep.Navigation.fragmentKtx
+    implementation Dep.Navigation.uiKtx
 
-    // Epoxy
-    implementation 'com.airbnb.android:epoxy:3.8.0'
-    annotationProcessor 'com.airbnb.android:epoxy-processor:3.8.0'
-    api 'com.airbnb.android:epoxy-databinding:3.8.0'
+    implementation Dep.Epoxy.epoxy
+    kapt Dep.Epoxy.processor
+    api Dep.Epoxy.dataBinding
 
     implementation project(":ui_home")
     implementation project(":ui_user_detail")

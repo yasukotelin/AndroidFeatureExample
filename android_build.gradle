@@ -1,0 +1,47 @@
+import dependencies.Android
+import dependencies.Dep
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+kapt {
+    correctErrorTypes = true
+}
+
+android {
+    compileSdkVersion Android.compileSdkVersion
+    buildToolsVersion Android.buildToolVersion
+
+    defaultConfig {
+        minSdkVersion Android.DefaultConfig.minSdkVersion
+        targetSdkVersion Android.DefaultConfig.targetSdkVersion
+        versionCode Android.DefaultConfig.versionCode
+        versionName Android.DefaultConfig.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation Dep.Kotlin.stdlib
+    implementation Dep.AndroidX.appcompat
+    implementation Dep.AndroidX.coreKtx
+    implementation Dep.AndroidX.legacySupport
+    implementation Dep.Coroutine.core
+    implementation Dep.Android.palette
+
+    testImplementation Dep.Test.junit
+    androidTestImplementation Dep.Test.junit
+    androidTestImplementation Dep.Test.espresso
+}
